@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function CreaLibri(){
 
@@ -9,6 +10,8 @@ export default function CreaLibri(){
   const [iban,setIban] = useState("");
   const [frase,setFrase] = useState("");
   const [img,setImg] = useState("");
+
+  const router = useRouter();
 
   const crea = () => {
 
@@ -24,6 +27,7 @@ export default function CreaLibri(){
 
     alert("Libro creato!");
 
+   
     setTitolo("");
     setAutore("");
     setIban("");
@@ -38,6 +42,14 @@ export default function CreaLibri(){
 
       <h1>Crea libro</h1>
 
+      {/* Bottone per tornare alla biblioteca */}
+      <button 
+        onClick={() => router.push("/biblioteca")} 
+        style={{marginBottom:"20px"}}
+      >
+        Torna alla biblioteca
+      </button>
+<br/><br/>
       <input
         placeholder="Titolo"
         value={titolo}
@@ -49,7 +61,7 @@ export default function CreaLibri(){
         value={autore}
         onChange={(e)=>setAutore(e.target.value)}
       />
-
+<br/><br/>
       <input
         placeholder="IBAN"
         value={iban}
@@ -61,14 +73,14 @@ export default function CreaLibri(){
         value={frase}
         onChange={(e)=>setFrase(e.target.value)}
       />
-
+<br/><br/>
       <input
         placeholder="Link immagine"
         value={img}
         onChange={(e)=>setImg(e.target.value)}
       />
-
-      <button onClick={crea}>
+<br/><br/>
+      <button onClick={crea} style={{marginTop:"10px"}}>
         Crea libro
       </button>
 
