@@ -4,17 +4,27 @@ import { useEffect, useState } from "react";
 
 export default function MieiLibri(){
 
-  const [prenotati, setPrenotati] = useState<any[]>([]);
+  const [libri, setLibri] = useState<any[]>([]);
 
   useEffect(()=>{
 
     const data = localStorage.getItem("prenotati");
 
     if(data){
-      setPrenotati(JSON.parse(data));
+      setLibri(JSON.parse(data));
     }
 
   },[]);
+
+  function restituisci(id:number){
+
+    const nuovi = libri.filter(libro => libro.id !== id);
+
+    setLibri(nuovi);
+
+    localStorage.setItem("prenotati", JSON.stringify(nuovi));
+
+  }
 
   return(
 
@@ -22,19 +32,45 @@ export default function MieiLibri(){
 
       <h1>I miei libri</h1>
 
-      {prenotati.length === 0 && (
-        <p>Nessun libro prenotato</p>
-      )}
+      <div
+      style={{
+        display:"flex",
+        gap:"20px",
+        flexWrap:"wrap",
+        marginTop:"30px"
+      }}
+      >
 
-      {prenotati.map(libro => (
+      {libri.map(libro => (
 
-        <div key={libro.id}>
+        <div
+        key={libro.id}
+        style={{
+          width:"200px",
+          border:"1px solid #ccc",
+          padding:"10px",
+          textAlign:"center"
+        }}
+        >
+
+          <img
+            src={libro.img}
+            style={{width:"100%"}}
+          />
 
           <h3>{libro.titolo}</h3>
+
+          <button
+          onClick={()=>restituisci(libro.id)}
+          >
+            Restituisci
+          </button>
 
         </div>
 
       ))}
+
+      </div>
 
     </div>
 

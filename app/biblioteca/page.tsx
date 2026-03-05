@@ -13,16 +13,16 @@ export default function Biblioteca() {
   const router = useRouter();
 
   function prenota(libro:any){
+    const salvati = JSON.parse(localStorage.getItem("prenotati") || "[]");
 
-    if(prenotati.find(l => l.id === libro.id)){
+    if(salvati.find((l:any) => l.id === libro.id)){
       alert("Hai già prenotato questo libro");
       return;
     }
 
-    setPrenotati([...prenotati, libro]);
-
+    const nuovi = [...salvati, libro];
+    localStorage.setItem("prenotati", JSON.stringify(nuovi));
     alert("Libro prenotato");
-
   }
 
   const libriFiltrati = libri.filter(libro =>
@@ -30,17 +30,19 @@ export default function Biblioteca() {
   );
 
   return (
-
     <div style={{padding:"40px"}}>
-
       <h1>Biblioteca</h1>
 
       <button onClick={()=>router.push("/miei-libri")}>
         I miei libri
       </button>
 
-      <br/>
-      <br/>
+      {/* NUOVO PULSANTE CREA LIBRO */}
+      <button onClick={() => router.push("/crea-libro")} style={{marginLeft: "20px"}}>
+        Crea libro
+      </button>
+
+      <br/><br/>
 
       <input
         placeholder="Cerca libro..."
@@ -49,27 +51,22 @@ export default function Biblioteca() {
       />
 
       <div
-      style={{
-        display:"flex",
-        flexWrap:"wrap",
-        gap:"20px",
-        marginTop:"30px"
-      }}
+        style={{
+          display:"flex",
+          flexWrap:"wrap",
+          gap:"20px",
+          marginTop:"30px"
+        }}
       >
-
         {libriFiltrati.map(libro => (
-
-          <Book
-            key={libro.id}
-            {...libro}
-            prenota={prenota}
+          <Book 
+            key={libro.id} // importante!
+            {...libro} 
+            prenota={prenota} 
           />
-
-        ))}
-
+))}
+      
       </div>
-
     </div>
-
   );
 }
