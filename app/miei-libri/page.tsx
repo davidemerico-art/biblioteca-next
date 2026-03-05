@@ -1,22 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function MieiLibri(){
 
-  const [libri, setLibri] = useState<any[]>([]);
+  const [libri,setLibri] = useState<any[]>([]);
+  const router = useRouter();
 
   useEffect(()=>{
 
     const data = localStorage.getItem("prenotati");
 
     if(data){
-      setLibri(JSON.parse(data));
+      const parsed = JSON.parse(data);
+
+      const puliti = parsed.filter((l:any) => l !== null);
+
+      setLibri(puliti);
     }
 
   },[]);
 
-  function restituisci(id:number){
+  const restituisci = (id:number) => {
 
     const nuovi = libri.filter(libro => libro.id !== id);
 
@@ -24,7 +30,7 @@ export default function MieiLibri(){
 
     localStorage.setItem("prenotati", JSON.stringify(nuovi));
 
-  }
+  };
 
   return(
 
@@ -32,48 +38,53 @@ export default function MieiLibri(){
 
       <h1>I miei libri</h1>
 
+      <button
+        onClick={()=>router.push("/biblioteca")}
+        style={{marginBottom:"30px"}}
+      >
+        Torna alla biblioteca
+      </button>
+
       <div
-      style={{
-        display:"flex",
-        gap:"20px",
-        flexWrap:"wrap",
-        marginTop:"30px"
-      }}
+        style={{
+          display:"flex",
+          flexWrap:"wrap",
+          gap:"20px"
+        }}
       >
 
-      {libri.map(libro => (
+        {libri.map(libro => (
 
-        <div
-        key={libro.id}
-        style={{
-          width:"200px",
-          border:"1px solid #ccc",
-          padding:"10px",
-          textAlign:"center"
-        }}
-        >
-
-          <img
-            src={libro.img}
-            style={{width:"100%"}}
-          />
-
-          <h3>{libro.titolo}</h3>
-
-          <button
-          onClick={()=>restituisci(libro.id)}
+          <div
+            key={libro.id}
+            style={{
+              width:"200px",
+              border:"1px solid #ccc",
+              padding:"10px",
+              textAlign:"center"
+            }}
           >
-            Restituisci
-          </button>
 
-        </div>
+            <img
+              src={libro.img}
+              alt={libro.titolo}
+              style={{width:"100%"}}
+            />
 
-      ))}
+            <h3>{libro.titolo}</h3>
+
+            <button onClick={()=>restituisci(libro.id)}>
+              Restituisci
+            </button>
+
+          </div>
+
+        ))}
 
       </div>
 
     </div>
 
-  );
+  )
 
 }

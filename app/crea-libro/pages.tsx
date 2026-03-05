@@ -1,73 +1,79 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
-export default function CreaLibro() {
-  const [titolo, setTitolo] = useState("");
-  const [autore, setAutore] = useState("");
-  const [iban, setIban] = useState("");
-  const [fraseFamosa, setFraseFamosa] = useState("");
-  const [img, setImg] = useState("");
+export default function CreaLibri(){
 
-  const router = useRouter();
+  const [titolo,setTitolo] = useState("");
+  const [autore,setAutore] = useState("");
+  const [iban,setIban] = useState("");
+  const [frase,setFrase] = useState("");
+  const [img,setImg] = useState("");
 
-  function salvaLibro(e: React.FormEvent) {
-    e.preventDefault();
-
-    const libri = JSON.parse(localStorage.getItem("libri") || "[]");
+  const crea = () => {
 
     const nuovoLibro = {
-      id: Date.now(), 
       titolo,
       autore,
       iban,
-      fraseFamosa,
+      frase,
       img
     };
 
-    localStorage.setItem("libri", JSON.stringify([...libri, nuovoLibro]));
-    alert("Libro creato!");
-    router.push("/"); 
-  }
+    console.log(nuovoLibro);
 
-  return (
-    <div style={{padding:"40px"}}>
-      <h1>Crea nuovo libro</h1>
-      <form onSubmit={salvaLibro} style={{display:"flex", flexDirection:"column", gap:"10px", maxWidth:"400px"}}>
-        <input 
-          placeholder="Titolo" 
-          value={titolo} 
-          onChange={e => setTitolo(e.target.value)} 
-          required 
-        />
-        <input 
-          placeholder="Autore" 
-          value={autore} 
-          onChange={e => setAutore(e.target.value)} 
-          required 
-        />
-        <input 
-          type="number" 
-          placeholder="Iban" 
-          value={iban} 
-          onChange={e => setIban(e.target.value)} 
-          required 
-        />
-        <input 
-          placeholder="Frase famosa" 
-          value={fraseFamosa} 
-          onChange={e => setFraseFamosa(e.target.value)} 
-          required 
-        />
-        <input 
-          placeholder="URL immagine" 
-          value={img} 
-          onChange={e => setImg(e.target.value)} 
-          required 
-        />
-        <button type="submit">Salva libro</button>
-      </form>
+    alert("Libro creato!");
+
+    setTitolo("");
+    setAutore("");
+    setIban("");
+    setFrase("");
+    setImg("");
+
+  };
+
+  return(
+
+    <div className="container">
+
+      <h1>Crea libro</h1>
+
+      <input
+        placeholder="Titolo"
+        value={titolo}
+        onChange={(e)=>setTitolo(e.target.value)}
+      />
+
+      <input
+        placeholder="Autore"
+        value={autore}
+        onChange={(e)=>setAutore(e.target.value)}
+      />
+
+      <input
+        placeholder="IBAN"
+        value={iban}
+        onChange={(e)=>setIban(e.target.value)}
+      />
+
+      <input
+        placeholder="Frase famosa"
+        value={frase}
+        onChange={(e)=>setFrase(e.target.value)}
+      />
+
+      <input
+        placeholder="Link immagine"
+        value={img}
+        onChange={(e)=>setImg(e.target.value)}
+      />
+
+      <button onClick={crea}>
+        Crea libro
+      </button>
+
     </div>
-  );
+
+  )
+
 }
