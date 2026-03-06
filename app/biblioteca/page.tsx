@@ -4,11 +4,13 @@ import { useState } from "react";
 import { libri } from "../../data/libri";
 import Book from "../components/Book";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Biblioteca() {
 
   const [prenotati, setPrenotati] = useState<any[]>([]);
   const [search, setSearch] = useState("");
+  const [libriTotali, setLibriTotali] = useState<any[]>([]);
 
   const router = useRouter();
 
@@ -26,10 +28,14 @@ export default function Biblioteca() {
     return;
   }
 
-  const libriFiltrati = libri.filter(libro =>
-    libro.titolo.toLowerCase().includes(search.toLowerCase())
-  );
+  const libriFiltrati = libriTotali.filter(libro =>
+  libro.titolo.toLowerCase().includes(search.toLowerCase())
+);
 
+  useEffect(() => {
+  const creati = JSON.parse(localStorage.getItem("libriCreati") || "[]");
+  setLibriTotali([...libri, ...creati]);
+}, []);
   return (
     <div style={{padding:"40px"}}>
       <h1>Biblioteca</h1>

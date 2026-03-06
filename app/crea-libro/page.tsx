@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { libri } from "../../data/libri";
 
 export default function CreaLibri(){
 
@@ -15,26 +16,26 @@ export default function CreaLibri(){
 
   const crea = () => {
 
-    const nuovoLibro = {
-      titolo,
-      autore,
-      iban,
-      frase,
-      img
-    };
+  const salvati = JSON.parse(localStorage.getItem("libriCreati") || "[]");
 
-    console.log(nuovoLibro);
-
-    alert("Libro creato!");
-
-   
-    setTitolo("");
-    setAutore("");
-    setIban("");
-    setFrase("");
-    setImg("");
-
+  const nuovoLibro = {
+    id: Date.now(),
+    titolo,
+    autore,
+    iban,
+    fraseFamosa: frase,
+    img
   };
+
+  const nuovi = [...salvati, nuovoLibro];
+
+  localStorage.setItem("libriCreati", JSON.stringify(nuovi));
+
+  alert("Libro creato!");
+
+  router.push("/biblioteca");
+
+};
 
   return(
 
