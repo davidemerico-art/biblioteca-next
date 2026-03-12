@@ -13,6 +13,9 @@ export default function Biblioteca() {
   const [libriTotali, setLibriTotali] = useState<any[]>([]);
 
   const router = useRouter();
+  function acquista(libro:any){
+  router.push("/acquista");
+}
 
   function prenota(libro:any){
     const salvati = JSON.parse(localStorage.getItem("prenotati") || "[]");
@@ -67,13 +70,13 @@ export default function Biblioteca() {
       >
       {libriFiltrati.map(libro => (
         
-  <Book 
-    key={libro.id} 
-    {...libro} 
-    prenota={() => prenota(libro)} 
-      acquista={() => acquista(libro)}
-    
-  />
+ <Book 
+  key={libro.id} 
+  {...libro} 
+  prenota={() => prenota(libro)} 
+  acquista={() => acquista(libro)}
+  style={{ margin: "20px" }}
+/>
   
 ))}
 

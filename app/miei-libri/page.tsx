@@ -31,6 +31,9 @@ export default function MieiLibri(){
     localStorage.setItem("prenotati", JSON.stringify(nuovi));
 
   };
+  const acquista = (libro:any) => {
+  router.push("/acquista");
+};
 
   return(
 
@@ -72,10 +75,16 @@ export default function MieiLibri(){
             />
 
             <h3>{libro.titolo}</h3>
+  <button onClick={()=>restituisci(libro.id)}>
+  Restituisci
+</button>
 
-            <button onClick={()=>restituisci(libro.id)}>
-              Restituisci
-            </button>
+<button 
+  onClick={()=>acquista(libro)}
+  style={{ marginLeft: "10px" }}
+>
+  Acquista
+</button>
             
 
           </div>

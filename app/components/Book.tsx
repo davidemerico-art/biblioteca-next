@@ -6,7 +6,7 @@ type BookProps = {
   fraseFamosa:string;
   img:string;
   prenota: () => void;
-  agquista: () => void;
+  acquista: () => void;
 };
 
 export default function Book({
@@ -16,7 +16,7 @@ export default function Book({
   fraseFamosa,
   img,
   prenota,
-  agquista
+  acquista
 }:BookProps){
 
   return(
@@ -39,9 +39,9 @@ export default function Book({
         Prenota
       </button>
 
-      <button onClick={agquista}>
-        Acquista
-      </button>
+     <button onClick={acquista}>
+  Acquista
+</button>
 
     </div>
 
