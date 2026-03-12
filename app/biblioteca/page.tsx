@@ -71,9 +71,8 @@ export default function Biblioteca() {
     key={libro.id} 
     {...libro} 
     prenota={() => prenota(libro)} 
-    key={libro.id}
-    {...libro}
-    acquista={() => acquista(libro)}
+      acquista={() => acquista(libro)}
+    
   />
   
 ))}
