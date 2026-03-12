@@ -66,11 +66,16 @@ export default function Biblioteca() {
         }}
       >
       {libriFiltrati.map(libro => (
+        
   <Book 
     key={libro.id} 
     {...libro} 
     prenota={() => prenota(libro)} 
+    key={libro.id}
+    {...libro}
+    acquista={() => acquista(libro)}
   />
+  
 ))}
 
       
