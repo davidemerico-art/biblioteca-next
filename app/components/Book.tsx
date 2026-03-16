@@ -2,7 +2,7 @@ type BookProps = {
   id:number;
   titolo:string;
   autore:string;
-  iban:string;
+  isbn:string;
   fraseFamosa:string;
   img:string;
   prenota: () => void;
@@ -12,7 +12,7 @@ type BookProps = {
 export default function Book({
   titolo,
   autore,
-  iban,
+  isbn,
   fraseFamosa,
   img,
   prenota,
@@ -29,7 +29,7 @@ export default function Book({
 
       <p>{autore}</p>
 
-      <p>IBAN: {iban}</p>
+      <p>ISBN: {isbn}</p>
 
       <p style={{fontStyle:"italic"}}>
         "{fraseFamosa}"

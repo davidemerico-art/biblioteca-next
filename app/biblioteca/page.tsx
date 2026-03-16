@@ -31,9 +31,11 @@ export default function Biblioteca() {
     return;
   }
 
-  const libriFiltrati = libriTotali.filter(libro =>
-  libro.titolo.toLowerCase().includes(search.toLowerCase())
-);
+ const libriFiltrati = libriTotali.filter(libro =>
+  libro.titolo?.toLowerCase().includes(search.toLowerCase()) ||
+  String(libro.isbn).toLowerCase().includes(search.toLowerCase())
+);;
+
 
   useEffect(() => {
   const creati = JSON.parse(localStorage.getItem("libriCreati") || "[]");

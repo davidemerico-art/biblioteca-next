@@ -1,6 +1,26 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Biblioteca from "./biblioteca/page";
 
 export default function Home() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      alert("Compila tutti i campi per accedere");
+      return;
+    }
+
+    router.push("/biblioteca"); 
+  };
+
   return (
     <>
       <div
@@ -23,6 +43,27 @@ export default function Home() {
           <p style={{ fontSize: "18px", color: "#555" }}>
             Accedi al tuo account per scoprire e leggere i tuoi libri preferiti
           </p>
+
+          
+          <form onSubmit={handleLogin} style={{ marginTop: "20px" }}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{ padding: "8px", marginRight: "10px" }}
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ padding: "8px", marginRight: "10px" }}
+            />
+
+            <button type="submit">Accedi</button>
+          </form>
         </div>
 
         <div
@@ -31,9 +72,7 @@ export default function Home() {
             right: "30px",
           }}
         >
-          <Link href="/login">
-            <button>Login</button>
-          </Link>
+          
         </div>
       </div>
 

@@ -19,7 +19,7 @@ export default function BookDetail({ params }: any) {
       <h3>{libro.autore}</h3>
 
       <p>{libro.fraseFamosa}</p>
-        <p>IBAN: {libro.iban}</p>
+        <p>ISBN: {libro.isbn}</p>
 
     </div>
 

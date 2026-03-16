@@ -8,7 +8,7 @@ export default function CreaLibri(){
 
   const [titolo,setTitolo] = useState("");
   const [autore,setAutore] = useState("");
-  const [iban,setIban] = useState("");
+  const [isbn,setISBN] = useState("");
   const [frase,setFrase] = useState("");
   const [img,setImg] = useState("");
 
@@ -22,7 +22,7 @@ export default function CreaLibri(){
     id: Date.now(),
     titolo,
     autore,
-    iban,
+    isbn,
     fraseFamosa: frase,
     img
   };
@@ -64,9 +64,9 @@ export default function CreaLibri(){
       />
 <br/><br/>
       <input
-        placeholder="IBAN"
-        value={iban}
-        onChange={(e)=>setIban(e.target.value)}
+        placeholder="ISBN"
+        value={isbn}
+        onChange={(e)=>setISBN(e.target.value)}
       />
 
       <input
