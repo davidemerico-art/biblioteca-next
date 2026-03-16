@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "./components/Navbar";
 
-export const metadata = {
-  title: "Biblioteca",
-  description: "App biblioteca",
+export const metadata: Metadata = {
+  title: "BiblioSphere — La tua biblioteca digitale",
+  description: "Esplora, prenota e acquista libri dalla tua biblioteca digitale personale.",
 };
 
 export default function RootLayout({
@@ -13,8 +13,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="it">
-      <body>{children}</body>
+    <html lang="it" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                  document.documentElement.classList.add('light-theme');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body suppressHydrationWarning>
+        <Navbar />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
