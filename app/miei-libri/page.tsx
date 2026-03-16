@@ -104,7 +104,7 @@ export default function MieiLibri() {
 
       {restituiti.length > 0 && (
         <div className="animate-fade-in mt-16" style={{ animationDelay: "0.3s" }}>
-          <h2 className="text-[1.4rem] mb-6 text-[#5a9f6e] border-b border-[var(--color-border)] pb-3 font-serif">Cronologia Restituzioni</h2>
+          <h2 className="text-[1.4rem] mb-6 text-[#9f805a] border-b border-[var(--color-border)] pb-3 font-serif">Cronologia Restituzioni</h2>
           
           <div className="flex flex-col gap-3">
             {restituiti.map(libro => (
@@ -114,11 +114,11 @@ export default function MieiLibri() {
                   <div className="text-[0.85rem] text-[var(--color-text-secondary)] flex items-center flex-wrap gap-1">
                     <span className="text-[var(--color-text-muted)]">Preso il {new Date(libro.dataPresa).toLocaleDateString()}</span>
                     <span className="mx-1 text-[var(--color-border-accent)] hidden sm:inline">|</span>
-                    <span className="text-[#5a9f6e]">Restituito il {new Date(libro.dataRestituzione).toLocaleDateString()}</span>
+                    <span className="text-[#9f805a]">Restituito il {new Date(libro.dataRestituzione).toLocaleDateString()}</span>
                   </div>
                 </div>
                 <div>
-                   <span className="badge badge-success shrink-0">Archiviato</span>
+                   <span className="badge badge-success shrink-0 text-[#9f805a]">Archiviato</span>
                 </div>
               </div>
             ))}
