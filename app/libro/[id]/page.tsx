@@ -100,8 +100,16 @@ export default function BookDetail() {
             borderRadius: "8px",
           }}
         >
-          <strong>{r.user}</strong> — {r.stelle}
-          <span style={{ color: "#f5b301" }}> ★</span>
+          <strong>{r.user}</strong>
+
+          <div style={{ color: "#f5b301", fontSize: "18px" }}>
+            {[1, 2, 3, 4, 5].map((numero) => (
+              <span key={numero}>
+                {numero <= r.stelle ? "★" : "☆"}
+              </span>
+            ))}
+          </div>
+
           <p>{r.testo}</p>
         </div>
       ))}
@@ -132,7 +140,7 @@ export default function BookDetail() {
 
         <br /><br />
 
-        {/* STELLE PROFESSIONALI */}
+        {/* STELLE CLICCABILI */}
         <div
           style={{
             display: "flex",
