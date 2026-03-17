@@ -14,6 +14,7 @@ export default function BookDetail() {
   const [nome, setNome] = useState("");
   const [testo, setTesto] = useState("");
   const [stelle, setStelle] = useState(5);
+  const [hover, setHover] = useState(0);
 
   useEffect(() => {
     const creati = JSON.parse(localStorage.getItem("libriCreati") || "[]");
@@ -27,7 +28,6 @@ export default function BookDetail() {
     }
   }, [id]);
 
-  
   const salvaRecensione = (e: any) => {
     e.preventDefault();
 
@@ -35,7 +35,7 @@ export default function BookDetail() {
       id: Date.now(),
       user: nome,
       testo,
-      stelle
+      stelle,
     };
 
     const nuove = [...recensioni, nuova];
@@ -45,6 +45,7 @@ export default function BookDetail() {
     setNome("");
     setTesto("");
     setStelle(5);
+    setHover(0);
   };
 
   if (!libro) {
@@ -65,7 +66,6 @@ export default function BookDetail() {
         ← Torna indietro
       </button>
 
-      
       {libro.img && (
         <div style={{ height: "500px", display: "flex", justifyContent: "center" }}>
           <img
@@ -74,7 +74,7 @@ export default function BookDetail() {
             style={{
               maxWidth: "100%",
               maxHeight: "100%",
-              objectFit: "contain"
+              objectFit: "contain",
             }}
           />
         </div>
@@ -97,10 +97,11 @@ export default function BookDetail() {
             border: "1px solid #ddd",
             padding: "10px",
             marginBottom: "10px",
-            borderRadius: "8px"
+            borderRadius: "8px",
           }}
         >
-          <strong>{r.user}</strong> — {r.stelle} ⭐
+          <strong>{r.user}</strong> — {r.stelle}
+          <span style={{ color: "#f5b301" }}> ★</span>
           <p>{r.testo}</p>
         </div>
       ))}
@@ -131,15 +132,32 @@ export default function BookDetail() {
 
         <br /><br />
 
-        <input
-          type="number"
-          min="1"
-          max="5"
-          value={stelle}
-          onChange={(e) => setStelle(Number(e.target.value))}
-        />
+        {/* STELLE PROFESSIONALI */}
+        <div
+          style={{
+            display: "flex",
+            gap: "5px",
+            fontSize: "24px",
+            cursor: "pointer",
+          }}
+        >
+          {[1, 2, 3, 4, 5].map((numero) => (
+            <span
+              key={numero}
+              onClick={() => setStelle(numero)}
+              onMouseEnter={() => setHover(numero)}
+              onMouseLeave={() => setHover(0)}
+              style={{
+                color: numero <= (hover || stelle) ? "#f5b301" : "#ccc",
+                transition: "0.2s",
+              }}
+            >
+              ★
+            </span>
+          ))}
+        </div>
 
-        <br /><br />
+        <br />
 
         <button type="submit">
           Invia recensione
