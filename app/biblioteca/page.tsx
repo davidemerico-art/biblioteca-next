@@ -11,13 +11,13 @@ export default function Biblioteca() {
   const [libriTotali, setLibriTotali] = useState<any[]>([]);
   const router = useRouter();
 
-  
+  // Carica libri (default + creati)
   useEffect(() => {
     const creati = JSON.parse(localStorage.getItem("libriCreati") || "[]");
     setLibriTotali([...libri, ...creati]);
   }, []);
 
-  
+  // Prenota libro
   function prenota(libro: any) {
     const salvati = JSON.parse(localStorage.getItem("prenotati") || "[]");
 
@@ -31,12 +31,12 @@ export default function Biblioteca() {
     alert("Libro prenotato");
   }
 
-
+  // Acquista libro
   function acquista(libro: any) {
     router.push("/acquista");
   }
 
-
+  // Filtro ricerca
   const libriFiltrati = libriTotali.filter(libro =>
     libro.titolo?.toLowerCase().includes(search.toLowerCase()) ||
     String(libro.isbn).toLowerCase().includes(search.toLowerCase()) ||
@@ -50,21 +50,48 @@ export default function Biblioteca() {
         La Collezione
       </h1>
 
-      
-      <input
-        type="text"
-        placeholder="Cerca per titolo, autore o ISBN..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={{
-          padding: "10px",
-          width: "100%",
-          maxWidth: "400px",
-          marginBottom: "30px"
-        }}
-      />
+     {/* CONTENITORE SEARCH + BUTTON */}
+<div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: "30px",
+    gap: "10px",
+    flexWrap: "wrap" // utile per mobile
+  }}
+>
+  {/* BARRA DI RICERCA */}
+  <input
+    type="text"
+    placeholder="Cerca per titolo, autore o ISBN..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    style={{
+      padding: "10px",
+      width: "100%",
+      maxWidth: "400px"
+    }}
+  />
 
-      
+   {/* BOTTONE */}
+<button
+  onClick={() => router.push("/crea-libro")}
+  style={{
+    padding: "10px 20px",
+    backgroundColor: " b8860b;", 
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    whiteSpace: "nowrap"
+  }}
+>
+  Crea Libro
+</button>
+</div>
+
+      {/* GRID LIBRI */}
       <div
         style={{
           display: "grid",
@@ -83,7 +110,7 @@ export default function Biblioteca() {
             }}
           >
 
-          
+            {/* COPERTINA CLICCABILE */}
             <img
               src={libro.img}
               alt={libro.titolo}
@@ -95,12 +122,12 @@ export default function Biblioteca() {
               onClick={() => router.push(`/libro/${libro.id}`)}
             />
 
-            
+            {/* SOLO TITOLO */}
             <h3 style={{ marginTop: "10px" }}>
               {libro.titolo}
             </h3>
 
-           
+            {/* BOTTONI */}
 <div
   style={{
     display: "flex",
