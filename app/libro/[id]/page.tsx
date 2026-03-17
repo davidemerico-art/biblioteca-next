@@ -28,7 +28,6 @@ export default function BookDetail() {
     }
   }, [id]);
 
-  
   const salvaRecensione = (e: any) => {
     e.preventDefault();
 
@@ -41,7 +40,7 @@ export default function BookDetail() {
       id: Date.now(),
       user: nome,
       testo,
-      stelle
+      stelle,
     };
 
     const nuove = [...recensioni, nuova];
@@ -51,6 +50,7 @@ export default function BookDetail() {
     setNome("");
     setTesto("");
     setStelle(0);
+    setHoverStelle(0);
   };
 
   if (!libro) {
@@ -71,7 +71,6 @@ export default function BookDetail() {
         ← Torna indietro
       </button>
 
-      
       {libro.img && (
         <div style={{ height: "500px", display: "flex", justifyContent: "center" }}>
           <img
@@ -80,7 +79,7 @@ export default function BookDetail() {
             style={{
               maxWidth: "100%",
               maxHeight: "100%",
-              objectFit: "contain"
+              objectFit: "contain",
             }}
           />
         </div>
@@ -109,7 +108,7 @@ export default function BookDetail() {
             border: "1px solid #ddd",
             padding: "10px",
             marginBottom: "10px",
-            borderRadius: "8px"
+            borderRadius: "8px",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "5px" }}>
@@ -182,7 +181,7 @@ export default function BookDetail() {
           ))}
         </div>
 
-        <br /><br />
+        <br />
 
         <button type="submit">
           Invia recensione
