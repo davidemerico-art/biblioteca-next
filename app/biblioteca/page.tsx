@@ -79,7 +79,7 @@ export default function Biblioteca() {
   onClick={() => router.push("/crea-libro")}
   style={{
     padding: "10px 20px",
-    backgroundColor: " b8860b;", 
+    backgroundColor: "#b8860b", 
     color: "white",
     border: "none",
     borderRadius: "5px",

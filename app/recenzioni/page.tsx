@@ -8,7 +8,8 @@ export default function Recensioni() {
   const [utente, setUtente] = useState("");
   const [titolo, setTitolo] = useState("");
   const [testo, setTesto] = useState("");
-  const [stelle, setStelle] = useState(5);
+  const [stelle, setStelle] = useState(0);
+  const [hoverStelle, setHoverStelle] = useState(0);
 
 
   useEffect(() => {
@@ -27,8 +28,8 @@ export default function Recensioni() {
   const inviaRecensione = (e:any) => {
     e.preventDefault();
 
-    if (!utente || !titolo || !testo) {
-      alert("Compila tutti i campi");
+    if (!utente || !titolo || !testo || stelle === 0) {
+      alert("Compila tutti i campi e assegna un voto");
       return;
     }
 
@@ -46,7 +47,7 @@ export default function Recensioni() {
 
     setTitolo("");
     setTesto("");
-    setStelle(5);
+    setStelle(0);
   };
 
   const eliminaRecensione = (id:number) => {
@@ -94,9 +95,26 @@ export default function Recensioni() {
 
           <h4>{r.titolo}</h4>
 
-          <p>
-            <strong>{r.user}</strong> — {r.stelle} ⭐
-          </p>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+            <strong>{r.user}</strong>
+            <div style={{ display: "flex", gap: "2px" }}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <svg
+                  key={star}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill={r.stelle >= star ? "gold" : "transparent"}
+                  stroke="gold"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ width: "20px", height: "20px" }}
+                >
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+              ))}
+            </div>
+          </div>
 
           <p>{r.testo}</p>
 
@@ -122,7 +140,7 @@ export default function Recensioni() {
 
         <input
           type="text"
-          placeholder="titolo recensione"
+          placeholder="Il tuo nome"
           value={utente}
           onChange={(e) => setUtente(e.target.value)}
           required
@@ -146,13 +164,25 @@ export default function Recensioni() {
           style={{ display: "block", marginBottom: "10px", width: "100%" }}
         />
 
-        <input
-          type="number"
-          min="1"
-          max="5"
-          value={stelle}
-          onChange={(e) => setStelle(Number(e.target.value))}
-        />
+        <div style={{ display: "flex", gap: "8px", marginBottom: "20px" }} onMouseLeave={() => setHoverStelle(0)}>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <svg
+              key={star}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill={(hoverStelle || stelle) >= star ? "gold" : "transparent"}
+              stroke="gold"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ cursor: "pointer", width: "40px", height: "40px", transition: "fill 0.2s" }}
+              onMouseEnter={() => setHoverStelle(star)}
+              onClick={() => setStelle(star)}
+            >
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+          ))}
+        </div>
 
         <br /><br />
 
