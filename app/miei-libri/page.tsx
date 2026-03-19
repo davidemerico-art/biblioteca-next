@@ -9,7 +9,7 @@ export default function MieiLibri() {
   const router = useRouter();
 
   useEffect(() => {
-    const data = localStorage.getItem("prenotati");
+     const data = localStorage.getItem("prenotati");
     if (data) {
       const parsed = JSON.parse(data);
       const puliti = parsed
